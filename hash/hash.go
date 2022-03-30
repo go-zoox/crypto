@@ -5,47 +5,47 @@ import (
 	_sha1 "crypto/sha1"
 	_sha256 "crypto/sha256"
 	_sha512 "crypto/sha512"
-	"fmt"
 	"io"
 
 	"github.com/go-zoox/crypto/base62"
 	"github.com/spaolacci/murmur3"
 )
 
-func Md5(text string) string {
+func Md5(text string, encoding ...string) string {
 	h := _md5.New()
 	io.WriteString(h, text)
-	return fmt.Sprintf("%x", h.Sum(nil))
+
+	return encode(h, encoding...)
 }
 
-func Sha256(text string) string {
+func Sha256(text string, encoding ...string) string {
 	h := _sha256.New()
 	io.WriteString(h, text)
-	return fmt.Sprintf("%x", h.Sum(nil))
+	return encode(h, encoding...)
 }
 
-func Sha512(text string) string {
+func Sha512(text string, encoding ...string) string {
 	h := _sha512.New()
 	io.WriteString(h, text)
-	return fmt.Sprintf("%x", h.Sum(nil))
+	return encode(h, encoding...)
 }
 
-func Sha1(text string) string {
+func Sha1(text string, encoding ...string) string {
 	h := _sha1.New()
 	io.WriteString(h, text)
-	return fmt.Sprintf("%x", h.Sum(nil))
+	return encode(h, encoding...)
 }
 
-func Sha224(text string) string {
+func Sha224(text string, encoding ...string) string {
 	h := _sha256.New224()
 	io.WriteString(h, text)
-	return fmt.Sprintf("%x", h.Sum(nil))
+	return encode(h, encoding...)
 }
 
-func Sha384(text string) string {
+func Sha384(text string, encoding ...string) string {
 	h := _sha512.New384()
 	io.WriteString(h, text)
-	return fmt.Sprintf("%x", h.Sum(nil))
+	return encode(h, encoding...)
 }
 
 func MurmurHash(text string) string {
