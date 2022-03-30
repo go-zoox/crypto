@@ -6,41 +6,40 @@ import (
 	"crypto/sha1"
 	"crypto/sha256"
 	"crypto/sha512"
-	"fmt"
 )
 
-func Sha256(secret, text string) string {
+func Sha256(secret, text string, encoding ...string) string {
 	mac := hmac.New(sha256.New, []byte(secret))
 	mac.Write([]byte(text))
-	return fmt.Sprintf("%x", mac.Sum(nil))
+	return encode(mac, encoding...)
 }
 
-func Md5(secret, text string) string {
+func Md5(secret, text string, encoding ...string) string {
 	mac := hmac.New(md5.New, []byte(secret))
 	mac.Write([]byte(text))
-	return fmt.Sprintf("%x", mac.Sum(nil))
+	return encode(mac, encoding...)
 }
 
-func Sha512(secret, text string) string {
+func Sha512(secret, text string, encoding ...string) string {
 	mac := hmac.New(sha512.New, []byte(secret))
 	mac.Write([]byte(text))
-	return fmt.Sprintf("%x", mac.Sum(nil))
+	return encode(mac, encoding...)
 }
 
-func Sha1(secret, text string) string {
+func Sha1(secret, text string, encoding ...string) string {
 	mac := hmac.New(sha1.New, []byte(secret))
 	mac.Write([]byte(text))
-	return fmt.Sprintf("%x", mac.Sum(nil))
+	return encode(mac, encoding...)
 }
 
-func Sha224(secret, text string) string {
+func Sha224(secret, text string, encoding ...string) string {
 	mac := hmac.New(sha256.New224, []byte(secret))
 	mac.Write([]byte(text))
-	return fmt.Sprintf("%x", mac.Sum(nil))
+	return encode(mac, encoding...)
 }
 
-func Sha384(secret, text string) string {
+func Sha384(secret, text string, encoding ...string) string {
 	mac := hmac.New(sha512.New384, []byte(secret))
 	mac.Write([]byte(text))
-	return fmt.Sprintf("%x", mac.Sum(nil))
+	return encode(mac, encoding...)
 }
