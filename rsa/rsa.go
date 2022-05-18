@@ -30,7 +30,7 @@ func New(privateKey string) (*RSA, error) {
 
 	publicKeyDecoded, err := GeneratePublicKey(privateKeyDecoded)
 	if err != nil {
-		return nil, errors.New("invalid public key(1): " + err.Error())
+		return nil, errors.New("invalid private key(3): " + err.Error())
 	}
 
 	_publicKey, err := x509.ParsePKCS1PublicKey(publicKeyDecoded)
@@ -86,4 +86,30 @@ func (r *RSA) Verify(message, signature []byte) (ok bool, err error) {
 func (r *RSA) GetPublickKey() string {
 	s, _ := GeneratePublicKeyString(r.privateKeyString)
 	return s
+}
+
+//
+type RSAEncryptor struct {
+	publicKey *rsa.PublicKey
+}
+
+func NewEncryptor(publicKey string) (*RSAEncryptor, error) {
+	publicKeyDecoded, err := base64.StdEncoding.DecodeString(publicKey)
+	if err != nil {
+		return nil, errors.New("invalid public key(1): " + err.Error())
+	}
+
+	_publicKey, err := x509.ParsePKCS1PublicKey(publicKeyDecoded)
+	if err != nil {
+		return nil, errors.New("invalid public key(2): " + err.Error())
+	}
+
+	return &RSAEncryptor{
+		publicKey: _publicKey,
+	}, nil
+}
+
+func (r *RSAEncryptor) Encrypt(plainbytes []byte) (cipherbytes []byte, err error) {
+	cipherbytes, err = rsa.EncryptPKCS1v15(rand.Reader, r.publicKey, plainbytes)
+	return
 }
