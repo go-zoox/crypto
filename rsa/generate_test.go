@@ -1,0 +1,17 @@
+package rsa
+
+import "testing"
+
+func TestGeneratePublicKeyFromPrivateKey(t *testing.T) {
+	privateKey := "MIICXAIBAAKBgQCmuEbvwpNB//67t/2g5cGMFkNbkmRbRmtDBK+hjboF66ml7hdbYPF09GNHQbl7b8Ru1hWTNhtu37GF4X0zg8nIU0HSMRSfvzUJ2SWKoAKXPy0jYQk2pxYpkYr3RfMMYVaEa55sT+0MGipSmpibrwkUL6W7k7CTYZpd/9J3JjAWRwIDAQABAoGANo0tiN4d2QaujzXQ44jKH9BZEemAtO0Bw9gQr8f0CmPmCskxE1FRMHeW1IYI7v7PQ4UBYj3eFBVVvPzfPq/sofxQnwVYVSVjWgz6NdZsaTAFh1YxnJx/IzAQFeWFyigZbmSBrMtLAer2G6inEOornzqT0+n8GEkeOpG+h7s54iECQQDaxwtpa11fiZov7dKdFJeOsYoGizBHafkA3/PrnRZxjhj+orWy87ev8Ltp+rz/5JnrHn7Pq31hgDn8LIWRiCyLAkEAwxXWCYTwE3N6KZ7UgxHpxBOaKyiQBLUfhu9rMeSyM4xdgbT6ByEwPjJxuBrqFQoaBUSLoX6vFGohJkFoUdTItQJACgctortlIEfyZVgFW2XiPIwuw3YF1IArBbs+NwKQUMwuoR1cLsO1G79xF76Cg0g7NefD8EjwClQSVFjGFpGjWQJAXcE4xApndnGg3C/A4dzSA7GH/gXYcOq65BZb5faKzcs/hP58ysBgdwO3M0t8A/B+4Nk4YbyIV79JfyEgCXPBoQJBALMJZOROVZZND4dUQAxk2+aRR+JIC7R1VDvNiUsQTiv9BRIs7l4qAiwCuDpdIL7y9t2AO8kc+5wINkjJUs4dq1Q="
+	publickKey := "MIGJAoGBAKa4Ru/Ck0H//ru3/aDlwYwWQ1uSZFtGa0MEr6GNugXrqaXuF1tg8XT0Y0dBuXtvxG7WFZM2G27fsYXhfTODychTQdIxFJ+/NQnZJYqgApc/LSNhCTanFimRivdF8wxhVoRrnmxP7QwaKlKamJuvCRQvpbuTsJNhml3/0ncmMBZHAgMBAAE="
+
+	_publicKey, err := GeneratePublicKeyString(privateKey)
+	if err != nil {
+		t.Fatal("error:", err)
+	}
+
+	if _publicKey != publickKey {
+		t.Fatal("failed to generate public key from private key")
+	}
+}

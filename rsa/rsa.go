@@ -13,9 +13,11 @@ import (
 type RSA struct {
 	privateKey *rsa.PrivateKey
 	publicKey  *rsa.PublicKey
+	//
+	privateKeyString string
 }
 
-func New(privateKey, publicKey string) (*RSA, error) {
+func New(privateKey string) (*RSA, error) {
 	privateKeyDecoded, err := base64.StdEncoding.DecodeString(privateKey)
 	if err != nil {
 		return nil, errors.New("invalid private key(1): " + err.Error())
@@ -26,7 +28,7 @@ func New(privateKey, publicKey string) (*RSA, error) {
 		return nil, errors.New("invalid private key(2): " + err.Error())
 	}
 
-	publicKeyDecoded, err := base64.StdEncoding.DecodeString(publicKey)
+	publicKeyDecoded, err := GeneratePublicKey(privateKeyDecoded)
 	if err != nil {
 		return nil, errors.New("invalid public key(1): " + err.Error())
 	}
@@ -37,8 +39,9 @@ func New(privateKey, publicKey string) (*RSA, error) {
 	}
 
 	return &RSA{
-		privateKey: _privateKey,
-		publicKey:  _publicKey,
+		privateKeyString: privateKey,
+		privateKey:       _privateKey,
+		publicKey:        _publicKey,
 	}, nil
 }
 
@@ -78,4 +81,9 @@ func (r *RSA) Verify(message, signature []byte) (ok bool, err error) {
 	}
 
 	return true, nil
+}
+
+func (r *RSA) GetPublickKey() string {
+	s, _ := GeneratePublicKeyString(r.privateKeyString)
+	return s
 }

@@ -44,7 +44,7 @@ func TestEncryptDecrypt(t *testing.T) {
 	source := "helloworld"
 	// target := "ZUiH2GD7Jp1XKIvTxurEelJiv7Ke1/ZacZGiMKXrU4tyCfhz5OeiYho2TPrH/dEZ25JjoRV9CGU38/8AP+l+/eeqGHlezVbGlfUM4yK4S9ELPr9OpGqT7H0+tpwZX+5HsU1eDdzXPL+UQpMQ4joRM9c1lgO+z4MmMC0sPHtWdy4="
 
-	r, err := New(privateKey, publickKey)
+	r, err := New(privateKey)
 	if err != nil {
 		t.Fatal("error:", err)
 	}
@@ -66,6 +66,10 @@ func TestEncryptDecrypt(t *testing.T) {
 	if source != string(_source) {
 		t.Fatal("failed to rsa")
 	}
+
+	if r.GetPublickKey() != publickKey {
+		t.Fatal("failed to get publick key")
+	}
 }
 
 func TestSignature(t *testing.T) {
@@ -75,7 +79,7 @@ func TestSignature(t *testing.T) {
 	message := "helloworld"
 	signature := "FI3pnHIadq5zK7mrmLf/uvW/i2GzBg18O2wA1QZqgGKaAdKLrllSnlSOVBeu8GqgoQCPZWdWzFPlCl40GbgRrqLt3qsp0gw6z5EWNcQ1stXfWATVReBBXClxT0FoF7jGk6kKqf118SGc1/b1PHokoXWDI9V5iETmZofd6VSPWGA="
 
-	r, err := New(privateKey, publickKey)
+	r, err := New(privateKey)
 	if err != nil {
 		t.Fatal("error:", err)
 	}
@@ -91,5 +95,9 @@ func TestSignature(t *testing.T) {
 
 	if ok, err := r.Verify([]byte(message), _signature); !ok || err != nil {
 		t.Fatal("failed to verify")
+	}
+
+	if r.GetPublickKey() != publickKey {
+		t.Fatal("failed to get publick key")
 	}
 }
