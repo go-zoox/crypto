@@ -38,4 +38,8 @@ func TestBcryptCompare(t *testing.T) {
 			t.Fatal("password and hash do not match")
 		}
 	}
+
+	if Compare(password, "xxx") {
+		t.Fatal("password and hash should not match")
+	}
 }

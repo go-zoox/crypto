@@ -21,6 +21,12 @@ func Generate(password string) string {
 // Compare a hash with password
 func Compare(password, hash string) bool {
 	parts := strings.Split(hash, ".")
+
+	// invalid hash
+	if len(parts) != 3 {
+		return false
+	}
+
 	timestamp, randomID, hash := parts[0], parts[1], parts[2]
 	return hash == hmac.Sha256(password, timestamp+randomID)
 }
