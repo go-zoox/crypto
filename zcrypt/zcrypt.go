@@ -1,5 +1,5 @@
 // inspired by bcrypt: https://zhuanlan.zhihu.com/p/400196101
-// zcrypt algorithm: timestamp.random_id.hmacSha256(password, timestamp)
+// zcrypt algorithm: random_id.timestamp.hmacSha256(password, timestamp)
 package zcrypt
 
 import (
@@ -13,9 +13,9 @@ import (
 
 // Generate a hash from password
 func Generate(password string) string {
-	timestamp := fmt.Sprintf("%d", time.Now().UnixMilli())
 	randomID := random.String(10)
-	return fmt.Sprintf("%s.%s.%s", timestamp, randomID, hmac.Sha256(password, timestamp+randomID))
+	timestamp := fmt.Sprintf("%d", time.Now().UnixMilli())
+	return fmt.Sprintf("%s.%s.%s", randomID, timestamp, hmac.Sha256(password, timestamp+randomID))
 }
 
 // Compare a hash with password
@@ -27,6 +27,6 @@ func Compare(password, hash string) bool {
 		return false
 	}
 
-	timestamp, randomID, hash := parts[0], parts[1], parts[2]
+	randomID, timestamp, hash := parts[0], parts[1], parts[2]
 	return hash == hmac.Sha256(password, timestamp+randomID)
 }
