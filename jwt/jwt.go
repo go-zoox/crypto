@@ -32,6 +32,8 @@ type Options struct {
 type jwt struct {
 	secret  string
 	options *Options
+	//
+	payload map[string]interface{}
 }
 
 // New creates a new JWT
@@ -63,7 +65,7 @@ func (j *jwt) Sign(payload map[string]interface{}) (string, error) {
 
 // Verify verifies data with secret
 func (j *jwt) Verify(token string) (map[string]interface{}, error) {
-	return Verify(j.secret, token, &VerifyOptions{
+	payload, err := Verify(j.secret, token, &VerifyOptions{
 		Issuer:    j.options.Issuer,
 		Subject:   j.options.Subject,
 		Audience:  j.options.Audience,
@@ -72,4 +74,83 @@ func (j *jwt) Verify(token string) (map[string]interface{}, error) {
 		IssuedAt:  j.options.IssuedAt,
 		JWTID:     j.options.JWTID,
 	})
+	if err != nil {
+		return nil, err
+	}
+
+	j.payload = payload
+
+	return j.payload, nil
+}
+
+// SetIssuer sets issuer
+func (j *jwt) SetIssuer(iss string) {
+	if j.options == nil {
+		j.options = &Options{}
+	}
+
+	j.options.Issuer = iss
+}
+
+// SetSubject sets subject
+func (j *jwt) SetSubject(sub string) {
+	if j.options == nil {
+		j.options = &Options{}
+	}
+
+	j.options.Subject = sub
+}
+
+// SetAudience sets audience
+func (j *jwt) SetAudience(aud string) {
+	if j.options == nil {
+		j.options = &Options{}
+	}
+
+	j.options.Audience = aud
+}
+
+// SetNotBefore sets not before
+func (j *jwt) SetNotBefore(nbf int64) {
+	if j.options == nil {
+		j.options = &Options{}
+	}
+
+	j.options.NotBefore = nbf
+}
+
+// SetExpiresAt sets expires at
+func (j *jwt) SetExpiresAt(exp int64) {
+	if j.options == nil {
+		j.options = &Options{}
+	}
+
+	j.options.ExpiresAt = exp
+}
+
+// SetIssuedAt sets issued at
+func (j *jwt) SetIssuedAt(iat int64) {
+	if j.options == nil {
+		j.options = &Options{}
+	}
+
+	j.options.IssuedAt = iat
+}
+
+// SetJWTID sets jwt id
+func (j *jwt) SetJWTID(jti string) {
+	if j.options == nil {
+		j.options = &Options{}
+	}
+
+	j.options.JWTID = jti
+}
+
+// SetAlgorithm sets algorithm
+func (j *jwt) SetAlgorithm(alg string) {
+	if j.options == nil {
+		j.options = &Options{}
+	}
+
+	j.options.Algorithm = alg
 }
