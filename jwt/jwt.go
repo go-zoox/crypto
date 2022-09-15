@@ -38,7 +38,7 @@ type jwt struct {
 
 // New creates a new JWT
 func New(secret string, options ...*Options) *jwt {
-	var opt *Options = nil
+	opt := &Options{}
 	if len(options) > 0 && options[0] != nil {
 		opt = options[0]
 	}
