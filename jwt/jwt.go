@@ -93,72 +93,40 @@ func (j *jwt) Verify(token string) (*typ.Value, error) {
 
 // SetIssuer sets issuer
 func (j *jwt) SetIssuer(iss string) {
-	if j.options == nil {
-		j.options = &Options{}
-	}
-
 	j.options.Issuer = iss
 }
 
 // SetSubject sets subject
 func (j *jwt) SetSubject(sub string) {
-	if j.options == nil {
-		j.options = &Options{}
-	}
-
 	j.options.Subject = sub
 }
 
 // SetAudience sets audience
 func (j *jwt) SetAudience(aud string) {
-	if j.options == nil {
-		j.options = &Options{}
-	}
-
 	j.options.Audience = aud
 }
 
 // SetNotBefore sets not before
 func (j *jwt) SetNotBefore(nbf int64) {
-	if j.options == nil {
-		j.options = &Options{}
-	}
-
 	j.options.NotBefore = nbf
 }
 
 // SetExpiresAt sets expires at
 func (j *jwt) SetExpiresAt(exp int64) {
-	if j.options == nil {
-		j.options = &Options{}
-	}
-
 	j.options.ExpiresAt = exp
 }
 
 // SetIssuedAt sets issued at
 func (j *jwt) SetIssuedAt(iat int64) {
-	if j.options == nil {
-		j.options = &Options{}
-	}
-
 	j.options.IssuedAt = iat
 }
 
 // SetJWTID sets jwt id
 func (j *jwt) SetJWTID(jti string) {
-	if j.options == nil {
-		j.options = &Options{}
-	}
-
 	j.options.JWTID = jti
 }
 
 // SetAlgorithm sets algorithm
 func (j *jwt) SetAlgorithm(alg string) {
-	if j.options == nil {
-		j.options = &Options{}
-	}
-
 	j.options.Algorithm = alg
 }
