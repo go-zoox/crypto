@@ -1,5 +1,5 @@
-github.com/go-zoox/core-utils v1.0.4 h1:hkED3IlciYfTYnk7LrO+lBGC/+I1KSjQpJL6+K1v7Rg=
-github.com/go-zoox/core-utils v1.0.4/go.mod h1:EknM3KLL6/kagL95wZbWE7mRRcYCG/fHqiJ/EH0ihAs=
+github.com/go-zoox/core-utils v1.1.0 h1:PlNGm/MqC7ph5UtC1/IRu+mdELzpAqEYEamz+1jnoKI=
+github.com/go-zoox/core-utils v1.1.0/go.mod h1:EknM3KLL6/kagL95wZbWE7mRRcYCG/fHqiJ/EH0ihAs=
 github.com/go-zoox/random v1.0.0 h1:SecY/LTpNUYuHzaH9Rm3yIHt5S9ayyE9q99ed2WKvxg=
 github.com/go-zoox/random v1.0.0/go.mod h1:W+PTQiInxaCngiXpSvycucAKvu1tE/tKlZ9kaMp2/Ys=
 github.com/go-zoox/testify v1.0.0 h1:zXuj+JMcudM/dWk8HgMfCKpGYDcyHbTUBGxH35SGubU=

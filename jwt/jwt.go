@@ -1,5 +1,7 @@
 package jwt
 
+import typ "github.com/go-zoox/core-utils/type"
+
 // Header is the header of JWT
 type Header struct {
 	Type      string `json:"typ"`
@@ -29,15 +31,21 @@ type Options struct {
 	Algorithm string
 }
 
+// Jwt is the jwt
+type Jwt interface {
+	Sign(payload map[string]interface{}) (string, error)
+	Verify(token string) (*typ.Value, error)
+}
+
 type jwt struct {
 	secret  string
 	options *Options
 	//
-	payload map[string]interface{}
+	payload *typ.Value
 }
 
 // New creates a new JWT
-func New(secret string, options ...*Options) *jwt {
+func New(secret string, options ...*Options) Jwt {
 	opt := &Options{}
 	if len(options) > 0 && options[0] != nil {
 		opt = options[0]
@@ -64,7 +72,7 @@ func (j *jwt) Sign(payload map[string]interface{}) (string, error) {
 }
 
 // Verify verifies data with secret
-func (j *jwt) Verify(token string) (map[string]interface{}, error) {
+func (j *jwt) Verify(token string) (*typ.Value, error) {
 	payload, err := Verify(j.secret, token, &VerifyOptions{
 		Issuer:    j.options.Issuer,
 		Subject:   j.options.Subject,

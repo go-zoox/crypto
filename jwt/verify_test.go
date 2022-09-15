@@ -15,7 +15,7 @@ func TestVerify(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	testify.Equal(t, payload["id"].(float64), 1)
-	testify.Equal(t, payload["nickname"].(string), "Zero")
-	testify.Equal(t, payload["avatar"].(string), "https://avatars.githubusercontent.com/u/7463687?v=4")
+	testify.Equal(t, payload.Get("id").Float64(), 1)
+	testify.Equal(t, payload.Get("nickname").String(), "Zero")
+	testify.Equal(t, payload.Get("avatar").String(), "https://avatars.githubusercontent.com/u/7463687?v=4")
 }

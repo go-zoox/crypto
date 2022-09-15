@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	typ "github.com/go-zoox/core-utils/type"
 	"github.com/go-zoox/crypto/hmac"
 )
 
@@ -23,7 +24,7 @@ type VerifyOptions struct {
 }
 
 // Verify verifies data with secret
-func Verify(secret string, token string, options ...*VerifyOptions) (map[string]interface{}, error) {
+func Verify(secret string, token string, options ...*VerifyOptions) (*typ.Value, error) {
 	var opt *VerifyOptions = nil
 	if len(options) > 0 && options[0] != nil {
 		opt = options[0]
@@ -94,5 +95,5 @@ func Verify(secret string, token string, options ...*VerifyOptions) (map[string]
 		}
 	}
 
-	return payloadX, nil
+	return typ.NewValue(payloadX), nil
 }
