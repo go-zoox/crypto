@@ -20,7 +20,7 @@ func encode(h hash.Hash, encoding ...string) string {
 		// return fmt.Sprintf("%x", h.Sum(nil))
 		return hex.EncodeToString(h.Sum(nil))
 	case "base64":
-		return base64.StdEncoding.EncodeToString(h.Sum(nil))
+		return base64.RawURLEncoding.EncodeToString(h.Sum(nil))
 	case "binary":
 		return string(h.Sum(nil))
 	default:
