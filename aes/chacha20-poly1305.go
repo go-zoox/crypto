@@ -3,8 +3,6 @@
 package aes
 
 import (
-	"fmt"
-
 	chacha20poly1305 "golang.org/x/crypto/chacha20poly1305"
 )
 
@@ -24,10 +22,7 @@ func NewChacha20Poly1305(encoding Encoding, iv []byte) (*Chacha20Poly1305, error
 }
 
 func (a *Chacha20Poly1305) Encrypt(plainbytes, key []byte) (cipherbytes []byte, err error) {
-	if len(key) != chacha20poly1305.KeySize {
-		err = fmt.Errorf("secret size should be %v, but %v", chacha20poly1305.KeySize, len(key))
-		return
-	}
+	key = PaddingKey(key, chacha20poly1305.KeySize)
 
 	ahead, err := chacha20poly1305.New(key)
 	if err != nil {
@@ -43,12 +38,9 @@ func (a *Chacha20Poly1305) Encrypt(plainbytes, key []byte) (cipherbytes []byte, 
 }
 
 func (a *Chacha20Poly1305) Decrypt(cipherbytes, key []byte) (plainbytes []byte, err error) {
-	_cipherbytes, _ := a.Encoding.DecodeString(string(cipherbytes))
+	key = PaddingKey(key, chacha20poly1305.KeySize)
 
-	if len(key) != chacha20poly1305.KeySize {
-		err = fmt.Errorf("secret size should be %v, but %v", chacha20poly1305.KeySize, len(key))
-		return
-	}
+	_cipherbytes, _ := a.Encoding.DecodeString(string(cipherbytes))
 
 	ahead, err := chacha20poly1305.New(key)
 	if err != nil {

@@ -11,6 +11,8 @@ func Test_Chacha20Poly1305(t *testing.T) {
 	testcases := map[string]string{
 		// chacha20-poly1305
 		"mysecretmysecretmysecretmysecret": "3AuCGEQotoyxpZBhETLaICZJUXSf+TUyYho=",
+		// short
+		"mysecretmysecretmysecretmy": "mEGjOqHqZEwfCR45cC9iySM4K3Za0xRPQY0=",
 	}
 
 	for secret, encrypted := range testcases {
