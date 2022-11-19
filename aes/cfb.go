@@ -5,7 +5,6 @@ package aes
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	"fmt"
 )
 
 type CFB struct {
@@ -24,11 +23,7 @@ func NewCFB(size int, encoding Encoding, iv []byte) (*CFB, error) {
 }
 
 func (a *CFB) Encrypt(plainbytes, key []byte) (cipherbytes []byte, err error) {
-	secretLength := len(key)
-	if secretLength != a.BlockSize() {
-		err = fmt.Errorf("secret size should be %v, but %v", a.BlockSize(), secretLength)
-		return
-	}
+	key = PaddingKey(key, a.BlockSize())
 
 	var block cipher.Block
 	block, err = aes.NewCipher(key)
@@ -46,11 +41,7 @@ func (a *CFB) Encrypt(plainbytes, key []byte) (cipherbytes []byte, err error) {
 }
 
 func (a *CFB) Decrypt(cipherbytes, key []byte) (plainbytes []byte, err error) {
-	secretLength := len(key)
-	if secretLength != a.BlockSize() {
-		err = fmt.Errorf("secret size should be %v, but %v", a.BlockSize(), secretLength)
-		return
-	}
+	key = PaddingKey(key, a.BlockSize())
 
 	var block cipher.Block
 	block, err = aes.NewCipher(key)

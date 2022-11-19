@@ -15,6 +15,14 @@ func Test_AES_GCM(t *testing.T) {
 		"mysecretmysecretmysecret": "FY+J+wtDOmnHa/mrZHW3TCFZNsr/wm7RTkg=",
 		// aes-256-gcm
 		"mysecretmysecretmysecretmysecret": "W3cKXCGLFSomeRTwy+4e3FUM+jpUk1ThO30=",
+
+		// short
+		// aes-128-gcm
+		"mysecretmy": "RB0kqWPC6vYGxyK0DSGhoItiOj+8QJGxv9c=",
+		// aes-192-gcm
+		"mysecretmysecretmy": "44ZyVed0yaEcOF2QugOtWlbjLjRZVccKSVA=",
+		// aes-256-gcm
+		"mysecretmysecretmysecretmy": "6WwoIOZJACazB/21fpzIMIEsbjsqO3hnFyE=",
 	}
 
 	for secret, encrypted := range testcases {

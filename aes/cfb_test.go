@@ -15,6 +15,14 @@ func Test_AES_CFB(t *testing.T) {
 		"mysecretmysecretmysecret": "OBGDXZigSAWEgA==",
 		// aes-256-cfb
 		"mysecretmysecretmysecretmysecret": "F/uw+MDTPx5EPg==",
+
+		// short
+		// aes-128-cfb
+		"mysecretmy": "KZwBIcrBkBNqOw==",
+		// aes-192-cfb
+		"mysecretmysecretmy": "L+47pm8glpQpzg==",
+		// aes-256-cfb
+		"mysecretmysecretmysecretmy": "dVvvPBZZP4TiaA==",
 	}
 
 	for secret, encrypted := range testcases {

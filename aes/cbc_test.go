@@ -15,6 +15,14 @@ func Test_AES_CBC(t *testing.T) {
 		"mysecretmysecretmysecret": "GinncdmEkjOYqSadyEYLbQ==",
 		// aes-256-cbc
 		"mysecretmysecretmysecretmysecret": "Kl64DBtxfmcCXCf31xALqw==",
+
+		// short
+		// aes-128-cbc
+		"mysecretmy": "6NEXL46lJZFnsbPsgS5/1g==",
+		// aes-192-cbc
+		"mysecretmysecretmy": "hk+d5hAUILO+x2zM+sZySA==",
+		// aes-256-cbc
+		"mysecretmysecretmysecretm": "rccdrZUSN6k3YavV0hv/Ag==",
 	}
 
 	for secret, encrypted := range testcases {

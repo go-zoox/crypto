@@ -2,6 +2,7 @@ package aes
 
 import (
 	"fmt"
+	"strings"
 )
 
 var SIZE = []int{128, 192, 256}
@@ -77,8 +78,16 @@ func (a *Aes) GetNonce(key []byte) []byte {
 }
 
 func New(size int, encoding Encoding, iv []byte) (*Aes, error) {
-	if !isKeySizeAllow(size) {
-		return nil, fmt.Errorf("aes key size should be 128, 192, 256, but %v", size)
+	// if !isKeySizeAllow(size) {
+	// 	return nil, fmt.Errorf("aes key size should be 128, 192, 256, but %v", size)
+	// }
+
+	if size <= 128 {
+		size = 128
+	} else if size <= 192 {
+		size = 192
+	} else {
+		size = 256
 	}
 
 	if encoding == nil {
@@ -118,4 +127,21 @@ func GenerateNonce(size int) (string, error) {
 	}
 
 	return RandomString(size / 8), nil
+}
+
+func PaddingKey(key []byte, expectedLength int) []byte {
+	secretLength := len(key)
+
+	// if secretLength != expectedLength {
+	// 	err = fmt.Errorf("secret size should be %v, but %v", expectedLength, secretLength)
+	// 	return
+	// }
+
+	if secretLength == expectedLength {
+		return key
+	} else if secretLength > expectedLength {
+		return key[:expectedLength]
+	} else {
+		return append(key, []byte(strings.Repeat("0", expectedLength-secretLength))...)
+	}
 }
